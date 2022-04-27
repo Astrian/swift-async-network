@@ -1,7 +1,7 @@
 import XCTest
-@testable import swift_async_network
+@testable import SwiftAsyncNetwork
 
-final class swift_async_networkTests: XCTestCase {
+final class SwiftAsyncNetworkTests: XCTestCase {
   
   // MARK: - Test GET method
   func testGet() async throws {
