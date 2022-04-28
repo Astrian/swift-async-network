@@ -3,9 +3,11 @@ import Foundation
 public struct Session {
   
   static let `default` = Session()
+    
+  public init() {}
   
   // MARK: - GET method
-  func request(_ method: String = "GET", _ urlString: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+  public func request(_ method: String = "GET", _ urlString: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
     
     // Create URL components
     var urlComponents = URLComponents()
