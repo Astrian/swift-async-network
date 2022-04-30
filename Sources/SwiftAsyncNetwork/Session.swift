@@ -6,7 +6,7 @@ public struct Session {
     
   public init() {}
   
-  // MARK: - GET method
+  // MARK: - Request code
   public func request(_ method: String = "GET", _ urlString: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
     
     // Create URL components
@@ -89,4 +89,17 @@ public struct Session {
     return (data, res as? HTTPURLResponse)
   }
   
+    
+  // MARK: - Alias methods
+  public func GET(_ urlString: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await self.request("GET", urlString, params: params)
+  }
+  
+  public func POST(_ urlString: String, body: [String: Any]?, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    var params: SANReqParams = params ?? SANReqParams()
+    if body != nil {
+      params.body = body
+    }
+    return try await self.request("POST", urlString, params: params)
+  }
 }
