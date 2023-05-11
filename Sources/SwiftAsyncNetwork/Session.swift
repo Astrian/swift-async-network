@@ -1,4 +1,4 @@
-import Foundation
+import FoundationNetworking
 
 public struct Session {
   
