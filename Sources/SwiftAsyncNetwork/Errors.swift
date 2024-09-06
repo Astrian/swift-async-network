@@ -8,4 +8,5 @@
 public enum SANErrors: Error {
   case invaildURL
   case internalError
+  case notAllowedParamsInInstance
 }

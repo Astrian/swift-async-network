@@ -13,10 +13,10 @@ public class SANInstance: ObservableObject {
   static let `default` = Session()
   
   // Input base URL
-  public init(baseURL: String) {
+  public init(baseURL: String) throws {
     // Detect the URL is valid
     guard let _ = URL(string: baseURL) else {
-      fatalError("Invalid URL")
+      throw SANErrors.invaildURL
     }
     // remove the last slash
     if baseURL.last == "/" {
@@ -26,10 +26,10 @@ public class SANInstance: ObservableObject {
     }
   }
   
-  public init(baseURL: String, params: SANReqParams) {
+  public init(baseURL: String, params: SANReqParams) throws {
     // Detect the URL is valid
     guard let _ = URL(string: baseURL) else {
-      fatalError("Invalid URL")
+      throw SANErrors.invaildURL
     }
     // remove the last slash
     if baseURL.last == "/" {
@@ -40,10 +40,10 @@ public class SANInstance: ObservableObject {
     
     // params should not have body and query
     if params.body != nil {
-      fatalError("Cannot set global body in instance level")
+      throw SANErrors.notAllowedParamsInInstance
     }
     if params.query != nil {
-      fatalError("Cannot set global query in instance level")
+      throw SANErrors.notAllowedParamsInInstance
     }
     
     self.params = params
