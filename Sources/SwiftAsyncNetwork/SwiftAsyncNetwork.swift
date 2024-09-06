@@ -26,6 +26,29 @@ public class SANInstance: ObservableObject {
     }
   }
   
+  public init(baseURL: String, params: SANReqParams) {
+    // Detect the URL is valid
+    guard let _ = URL(string: baseURL) else {
+      fatalError("Invalid URL")
+    }
+    // remove the last slash
+    if baseURL.last == "/" {
+      self.baseURL = String(baseURL.dropLast())
+    } else {
+      self.baseURL = baseURL
+    }
+    
+    // params should not have body and query
+    if params.body != nil {
+      fatalError("Cannot set global body in instance level")
+    }
+    if params.query != nil {
+      fatalError("Cannot set global query in instance level")
+    }
+    
+    self.params = params
+  }
+  
   // Request function, calling Session.request
   public func request(_ method: String = "GET", _ path: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
     // if the first character of path is not "/", add it
@@ -33,7 +56,16 @@ public class SANInstance: ObservableObject {
     if path.first != "/" {
       path = "/\(path)"
     }
-    return try await Session.default.request(method, baseURL + path, params: params)
+    
+    // if params is not nil, user may need to overwrite the config from instance
+    let newParams = SANReqParams(
+      query: params?.query,
+      body: params?.body,
+      header: params?.header ?? self.params?.header,
+      auth: params?.auth ?? self.params?.auth
+    )
+    
+    return try await Session.default.request(method, baseURL + path, params: newParams)
   }
   
   // Shortcut methods
@@ -51,4 +83,5 @@ public class SANInstance: ObservableObject {
   }
   
   var baseURL: String
+  var params: SANReqParams?
 }
