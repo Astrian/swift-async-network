@@ -36,5 +36,19 @@ public class SANInstance: ObservableObject {
     return try await Session.default.request(method, baseURL + path, params: params)
   }
   
+  // Shortcut methods
+  public func GET(_ path: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await request("GET", path, params: params)
+  }
+  public func POST(_ path: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await request("POST", path, params: params)
+  }
+  public func PUT(_ path: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await request("PUT", path, params: params)
+  }
+  public func DELETE(_ path: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await request("DELETE", path, params: params)
+  }
+  
   var baseURL: String
 }
