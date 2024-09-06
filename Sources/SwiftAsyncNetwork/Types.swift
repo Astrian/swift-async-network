@@ -49,8 +49,6 @@ public struct SANAuthCred {
         let loginString = "\(username ?? ""):\(password ?? "")"
         let loginData = loginString.data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
-        print("basic auth")
-        print(base64LoginString)
         return ["Authorization": "Basic \(base64LoginString)"]
       case .bearer:
         return ["Authorization": "Bearer \(token ?? "")"]

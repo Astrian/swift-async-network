@@ -85,7 +85,6 @@ public struct Session {
         request.addValue(value, forHTTPHeaderField: key)
       }
     }
-    print(params?.auth != nil)
     if params?.auth != nil {
       let header = params!.auth!.exportHeader()
       for (key, value) in header {
