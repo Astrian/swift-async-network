@@ -86,7 +86,7 @@ struct magusApp: App {
   }
 }
 
-struct FeedFlowView: View {
+struct ContentView: View {
   @EnvironmentObject var backend: SANInstance
   var body: some View {
     VStack {
