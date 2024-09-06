@@ -75,25 +75,25 @@ import SwiftAsyncNetwork
 import SwiftUI
 
 struct magusApp: App {
-  var feedbinBackend = SANInstance(baseURL: "https://backe.nd/", params: SANReqParams(
+  var backend = SANInstance(baseURL: "https://backe.nd/", params: SANReqParams(
     auth: SANAuthCred(username: "ren_amaniya", password: "takeurheart")
   ))
   
   var body: some Scene {
     WindowGroup {
-      ContentView().environmentObject(feedbinBackend)
+      ContentView().environmentObject(backend)
     }
   }
 }
 
 struct FeedFlowView: View {
-  @EnvironmentObject var feedbinBackend: SANInstance
+  @EnvironmentObject var backend: SANInstance
   var body: some View {
     VStack {
       Text("Hello World!")
     }.onAppear {
         Task {
-          let (data, _) = try await feedbinBackend.GET("/endpoint.json", params: SANReqParams(query: ["page":"1"]))
+          let (data, _) = try await backend.GET("/endpoint.json", params: SANReqParams(query: ["page":"1"]))
           let dataString = String(data: data, encoding: .utf8)
           print(dataString ?? "")
         }
