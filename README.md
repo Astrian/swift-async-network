@@ -75,7 +75,7 @@ import SwiftAsyncNetwork
 import SwiftUI
 
 struct magusApp: App {
-  var backend = SANInstance(baseURL: "https://backe.nd/", params: SANReqParams(
+  var backend = try! SANInstance(baseURL: "https://backe.nd/", params: SANReqParams(
     auth: SANAuthCred(username: "ren_amaniya", password: "takeurheart")
   ))
   

@@ -40,13 +40,16 @@ public class SANInstance: ObservableObject {
     
     // params should not have body and query
     if params.body != nil {
-      throw SANErrors.notAllowedParamsInInstance
+      #warning("The body parameter in instance level is not available.")
     }
     if params.query != nil {
-      throw SANErrors.notAllowedParamsInInstance
+      #warning("The query parameter in instance level is not available.")
     }
     
-    self.params = params
+    self.params = SANReqParams(
+      header: params.header,
+      auth: params.auth
+    )
   }
   
   // Request function, calling Session.request
