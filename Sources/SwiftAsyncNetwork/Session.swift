@@ -78,6 +78,17 @@ public struct Session {
     if params?.header != nil {
       let header: [String: String] = params!.header!
       for (key, value) in header {
+        if key == "Authorization" && params?.auth != nil {
+          // show warning that the custom Authorization header will be overwritten
+          #warning("The custom Authorization header will be overwritten by the auth parameter.")
+        }
+        request.addValue(value, forHTTPHeaderField: key)
+      }
+    }
+    print(params?.auth != nil)
+    if params?.auth != nil {
+      let header = params!.auth!.exportHeader()
+      for (key, value) in header {
         request.addValue(value, forHTTPHeaderField: key)
       }
     }
