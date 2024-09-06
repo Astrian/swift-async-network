@@ -112,4 +112,16 @@ public struct Session {
     }
     return try await self.request("POST", urlString, params: params)
   }
+  
+  public func PUT(_ urlString: String, body: [String: Any]?, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    var params: SANReqParams = params ?? SANReqParams()
+    if body != nil {
+      params.body = body
+    }
+    return try await self.request("PUT", urlString, params: params)
+  }
+  
+  public func DELETE(_ urlString: String, params: SANReqParams? = nil) async throws -> (Data, HTTPURLResponse?) {
+    return try await self.request("DELETE", urlString, params: params)
+  }
 }
