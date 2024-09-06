@@ -20,19 +20,13 @@ public struct SANReqParams {
 }
 
 public struct SANAuthCred {
-  public init (type: SANAuthCredType, username: String, password: String) {
-    if type != .basic {
-      fatalError("The username and password fields are only for basic auth")
-    }
+  public init (username: String, password: String) {
     self.type = .basic
     self.username = username
     self.password = password
   }
   
-  public init (type: SANAuthCredType, token: String) {
-    if type != .bearer {
-      fatalError("The token field is only for bearer auth")
-    }
+  public init (token: String) {
     self.type = .bearer
     self.token = token
   }
